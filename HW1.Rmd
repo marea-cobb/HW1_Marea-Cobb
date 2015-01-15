@@ -1,0 +1,79 @@
+
+
+```r
+#Use the ggplot2 package to plot the Iris data showing length vs width facetting petal/sepal vs flower type,
+#basically reproducing slide 27 of the lecture notes. Feel free to customize the styling as you see fit 
+#(color, font size, etc).
+
+
+#Loads ggplot2
+library(ggplot2)
+library(RColorBrewer)
+library(reshape2)
+
+colors <- brewer.pal(9, "Set3")
+
+#Loads the iris data
+data(iris)
+head(iris)
+```
+
+```
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+```
+
+```r
+# my_theme <- 
+
+#Creates a new column for flower_id for each entry.
+iris$flower_id <- rownames(iris)
+#Uses the default melt method to rearrange the data for easier classification.
+iris_melted <- melt(iris)
+```
+
+```
+## Using Species, flower_id as id variables
+```
+
+```r
+#Splits the variable at the "." to get the value name (length/width and flower type)
+split_variable <- strsplit(as.character(iris_melted$variable), split="\\.")
+#Creates the variable "flower_part" from the first value in split_variable and adds it to the table
+iris_melted$flower_part <- sapply(split_variable, "[", 1)
+#Creates the variable "measurement_type" from the second value in split_variable and adds it to the table
+iris_melted$measurement_type <- sapply(split_variable, "[", 2)
+#Removes variable from the table as we no longer need it
+iris_melted$variable <- NULL
+
+#Reshapes the data so iris$width and iris$length are now separte columns in the table 
+iris_cast <- dcast(iris_melted, formula=flower_id+Species+flower_part~measurement_type)
+#head(iris_cast)
+
+
+#Creates a plot to 
+ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # Add points and use free scales in the facet
+  geom_point()+facet_grid(Species~flower_part, scale="free")+
+  #Add a regression line
+  geom_smooth(method="lm")+
+  #Use the black/white theme and increase the font size
+  theme(plot.background = element_rect(colour="blue"))
+```
+
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png) 
+
+```r
+#Plots the iris data
+# my_plot <- ggplot(data=iris_cast, aes(x=Width, y=Length, shape=flower_part, color=flower_part))+
+#   # Add points
+#   geom_point()+facet_grid(~Species)+ geom_smooth(method="lm")
+# my_plot
+
+# dev.off()
+```
+
