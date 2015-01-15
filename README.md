@@ -1,2 +1,1 @@
-R License:
-The "GNU General Public License" version 3
+Contains all files for homework 1.
