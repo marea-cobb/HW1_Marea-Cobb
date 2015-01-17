@@ -1,3 +1,5 @@
+Contains all files for homework 1.
+
 This program imports the publicly provided iris dataset and plots the length and width of petals and sepals classified by flower type.
 
 R License:
