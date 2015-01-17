@@ -83,7 +83,6 @@ Creates a plot displaying the length and width of petals and sepals classified b
 
 
 ```r
-# ```{r createplot}
 ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # Add points and use free scales in the facet
   geom_point()+facet_grid(Species~flower_part, scale="free")+
   #' Add a regression line
@@ -92,10 +91,6 @@ ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # 
 ```
 
 ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
-
-```r
-# ```
-```
 
 Creates the R markdown files.
 

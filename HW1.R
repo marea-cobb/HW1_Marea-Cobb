@@ -36,13 +36,11 @@ iris_cast <- dcast(iris_melted, formula=flower_id+Species+flower_part~measuremen
 
 
 #' Creates a plot displaying the length and width of petals and sepals classified by flower type.
-# ```{r createplot}
 ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # Add points and use free scales in the facet
   geom_point()+facet_grid(Species~flower_part, scale="free")+
   #' Add a regression line
   geom_smooth(method="lm")+
   theme(plot.background = element_rect(colour="blue"))
-# ```
 
 #' Creates the R markdown files.
 library(knitr)
