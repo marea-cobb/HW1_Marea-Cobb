@@ -10,101 +10,10 @@ Loads specific libraries
 ```r
 library(ggplot2)
 library(RColorBrewer)
-library(knitr)
 ```
 
-Creates the R markdown files.
+Sets color theme
 
-
-```r
-spin(report = TRUE, hair = "HW1.R", format = "Rmd")
-```
-
-```
-## 
-## 
-## processing file: HW1.Rmd
-```
-
-```
-##   |                                                                         |                                                                 |   0%  |                                                                         |...                                                              |   4%
-##   ordinary text without R code
-## 
-##   |                                                                         |......                                                           |   9%
-## label: unnamed-chunk-12
-##   |                                                                         |........                                                         |  13%
-##   ordinary text without R code
-## 
-##   |                                                                         |...........                                                      |  17%
-## label: unnamed-chunk-13
-```
-
-```
-##   |                                                                         |..............                                                   |  22%
-##   ordinary text without R code
-## 
-##   |                                                                         |.................                                                |  26%
-## label: unnamed-chunk-14
-##   |                                                                         |....................                                             |  30%
-##   ordinary text without R code
-## 
-##   |                                                                         |.......................                                          |  35%
-## label: unnamed-chunk-15
-##   |                                                                         |.........................                                        |  39%
-##   ordinary text without R code
-## 
-##   |                                                                         |............................                                     |  43%
-## label: unnamed-chunk-16
-##   |                                                                         |...............................                                  |  48%
-##   ordinary text without R code
-## 
-##   |                                                                         |..................................                               |  52%
-## label: unnamed-chunk-17
-##   |                                                                         |.....................................                            |  57%
-##   ordinary text without R code
-## 
-##   |                                                                         |........................................                         |  61%
-## label: unnamed-chunk-18
-##   |                                                                         |..........................................                       |  65%
-##   ordinary text without R code
-## 
-##   |                                                                         |.............................................                    |  70%
-## label: unnamed-chunk-19
-##   |                                                                         |................................................                 |  74%
-##   ordinary text without R code
-## 
-##   |                                                                         |...................................................              |  78%
-## label: unnamed-chunk-20
-##   |                                                                         |......................................................           |  83%
-##   ordinary text without R code
-## 
-##   |                                                                         |.........................................................        |  87%
-## label: unnamed-chunk-21
-##   |                                                                         |...........................................................      |  91%
-##   ordinary text without R code
-## 
-##   |                                                                         |..............................................................   |  96%
-## label: unnamed-chunk-22
-```
-
-```
-##   |                                                                         |.................................................................| 100%
-##   ordinary text without R code
-```
-
-```
-## output file: HW1.md
-```
-
-![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-1.png) 
-
-```r
-file.rename("HW1.md", "HW1.Rmd")
-```
-
-```
-## [1] TRUE
-```
 
 ```r
 colors <- brewer.pal(9, "Set3")
@@ -142,14 +51,14 @@ Splits the variable at the "." to get the value name (length/width and flower ty
 split_variable <- strsplit(as.character(iris_melted$variable), split="\\.")
 ```
 
-Creates the variable "flower_part" from the first value in split_variable and adds it to the table
+Creates the variable "flower part" from the first value in split_variable and adds it to the table
 
 
 ```r
 iris_melted$flower_part <- sapply(split_variable, "[", 1)
 ```
 
-Creates the variable "measurement_type" from the second value in split_variable and adds it to the table
+Creates the variable "measurement type" from the second value in split_variable and adds it to the table
 
 
 ```r
@@ -170,28 +79,45 @@ Reshapes the data so iris$width and iris$length are now separte columns in the t
 iris_cast <- dcast(iris_melted, formula=flower_id+Species+flower_part~measurement_type)
 ```
 
-Creates a plot to 
+Creates a plot displaying the length and width of petals and sepals classified by flower type.
 
 
 ```r
+# ```{r createplot}
 ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # Add points and use free scales in the facet
   geom_point()+facet_grid(Species~flower_part, scale="free")+
   #' Add a regression line
   geom_smooth(method="lm")+
-  #' Use the black/white theme and increase the font size
   theme(plot.background = element_rect(colour="blue"))
 ```
 
 ![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
 
 ```r
-dev.off()
+# ```
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-2.png) 
+Creates the R markdown files.
+
+
+```r
+library(knitr)
+opts_knit$set(progress = FALSE, verbose = FALSE)
+spin(hair = "HW1.R", format = "Rmd")
+```
 
 ```
-## RStudioGD 
-##         2
+## processing file: HW1.Rmd
+## output file: HW1.md
+```
+
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
+
+```r
+file.rename("HW1.md", "HW1.Rmd")
+```
+
+```
+## [1] TRUE
 ```
 
