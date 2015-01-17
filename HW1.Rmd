@@ -12,6 +12,29 @@ library(ggplot2)
 library(RColorBrewer)
 ```
 
+Creates the R markdown files.
+
+
+```r
+library(knitr)
+opts_knit$set(progress = FALSE, verbose = FALSE)
+spin(hair = "HW1.R", format = "Rmd")
+```
+
+```
+## processing file: HW1.Rmd
+## output file: HW1.md
+```
+
+
+```r
+file.rename("HW1.md", "HW1.Rmd")
+```
+
+```
+## [1] TRUE
+```
+
 Sets color theme
 
 
@@ -85,34 +108,10 @@ Creates a plot displaying the length and width of petals and sepals classified b
 ```r
 ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # Add points and use free scales in the facet
   geom_point()+facet_grid(Species~flower_part, scale="free")+
-  #' Add a regression line
+  #' Adds a regression line
   geom_smooth(method="lm")+
   theme(plot.background = element_rect(colour="blue"))
 ```
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png) 
-
-Creates the R markdown files.
-
-
-```r
-library(knitr)
-opts_knit$set(progress = FALSE, verbose = FALSE)
-spin(hair = "HW1.R", format = "Rmd")
-```
-
-```
-## processing file: HW1.Rmd
-## output file: HW1.md
-```
-
-![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12-1.png) 
-
-```r
-file.rename("HW1.md", "HW1.Rmd")
-```
-
-```
-## [1] TRUE
-```
+<img src="figure/graphics-unnamed-chunk-12-1.pdf" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 

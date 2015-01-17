@@ -10,6 +10,12 @@
 library(ggplot2)
 library(RColorBrewer)
 
+#' Creates the R markdown files.
+library(knitr)
+opts_knit$set(progress = FALSE, verbose = FALSE)
+spin(hair = "HW1.R", format = "Rmd")
+file.rename("HW1.md", "HW1.Rmd")
+
 #'Sets color theme
 colors <- brewer.pal(9, "Set3")
 
@@ -34,17 +40,10 @@ iris_melted$variable <- NULL
 #' Reshapes the data so iris$width and iris$length are now separte columns in the table 
 iris_cast <- dcast(iris_melted, formula=flower_id+Species+flower_part~measurement_type)
 
-
 #' Creates a plot displaying the length and width of petals and sepals classified by flower type.
 ggplot(data=iris_cast, colour=colors, aes(x=Width, y=Length, color=Species))+ # Add points and use free scales in the facet
   geom_point()+facet_grid(Species~flower_part, scale="free")+
-  #' Add a regression line
+  #' Adds a regression line
   geom_smooth(method="lm")+
   theme(plot.background = element_rect(colour="blue"))
-
-#' Creates the R markdown files.
-library(knitr)
-opts_knit$set(progress = FALSE, verbose = FALSE)
-spin(hair = "HW1.R", format = "Rmd")
-file.rename("HW1.md", "HW1.Rmd")
 
