@@ -9,12 +9,13 @@
 #' Loads specific libraries 
 library(ggplot2)
 library(RColorBrewer)
+library(reshape2)
 
 #' Creates the R markdown files.
-library(knitr)
-opts_knit$set(progress = FALSE, verbose = FALSE, message=FALSE)
-spin(hair = "HW1.R", format = "Rmd")
-file.rename("HW1.md", "HW1.Rmd")
+# library(knitr)
+# opts_knit$set(progress = FALSE, verbose = FALSE, message=FALSE)
+# spin(hair = "HW1.R", format = "Rmd")
+# file.rename("HW1.md", "HW1.Rmd")
 
 #'Sets color theme
 colors <- brewer.pal(9, "Set3")

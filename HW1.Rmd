@@ -15,7 +15,7 @@ library(RColorBrewer)
 Creates the R markdown files.
 
 
-```r
+```{r, eval=FALSE}
 library(knitr)
 opts_knit$set(progress = FALSE, verbose = FALSE, message=FALSE)
 spin(hair = "HW1.R", format = "Rmd")
